@@ -26,52 +26,25 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MyApplicationTheme {
-                // A surface container using the 'background' color from the theme
-                Thesun()
+                Column {
+                    Navigation()
+                }
 
-
+            }
         }
     }
-}
+
 
     @Composable
-    fun Thesun() {
-        Box(contentAlignment = Alignment.Center, modifier = Modifier.background(color = Color.Black).fillMaxSize()) {
-            Sunplanet()
-            solarsystem()
+    fun Greeting(name: String) {
+        Text(text = "Hello $name!")
+    }
+
+    @Preview(showBackground = true)
+    @Composable
+    fun DefaultPreview() {
+        MyApplicationTheme {
+            Greeting("Android")
         }
-    }
-
-@Composable
-fun solarsystem() {
-    BoxWithConstraints(modifier = Modifier.fillMaxSize()
-        ) {
-        planetanimation(maxheight = maxHeight, maxwidth = maxWidth)
-        planetanimation2(maxwidth = maxWidth, maxheight =maxHeight )
-        planetanimation3(maxwidth = maxWidth, maxheight =maxHeight )
-        planetanimation4(maxwidth = maxWidth, maxheight =maxHeight )
-        planetanimation5(maxwidth = maxWidth, maxheight =maxHeight )
-        // PlanetAnimation(maxwidth = maxWidth, maxheight = maxHeight)
-    }
-
-
-
-
-    //Column(modifier = Modifier.height(100.dp)) {
-
-    //}
-}
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    MyApplicationTheme {
-        Greeting("Android")
     }
 }
