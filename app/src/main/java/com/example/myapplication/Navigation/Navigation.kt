@@ -1,19 +1,23 @@
 package com.example.myapplication
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
@@ -21,8 +25,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.example.myapplication.Navigation.BottombarNav
 import com.example.myapplication.ui.theme.backgroundnav
+import kotlinx.coroutines.delay
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -47,10 +54,13 @@ fun BottomBar(navcontroller: NavHostController) {
     val navbackstackEntry by navcontroller.currentBackStackEntryAsState()
     val currentdestination = navbackstackEntry?.destination
 
-    BottomNavigation(modifier = Modifier.fillMaxWidth().height(64.dp).graphicsLayer {
-        shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
-        clip =true
-    }, backgroundColor = backgroundnav) {
+    BottomNavigation(modifier = Modifier
+        .fillMaxWidth()
+        .height(74.dp)
+        .graphicsLayer {
+            shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
+            clip = true
+        }, backgroundColor = Color.White) {
         Screens.forEach{screens ->
             AddItem(screen = screens, currentdestination = currentdestination, navController =navcontroller )
         }
@@ -63,11 +73,14 @@ fun RowScope.AddItem(
     currentdestination:NavDestination?,
     navController:NavHostController
 ) {
-    BottomNavigationItem(modifier = Modifier,
+    BottomNavigationItem(modifier = Modifier, unselectedContentColor = Color.Black, selectedContentColor = Color.Transparent,
         label = {
             Text(text = screen.title)
         }, icon = {
-            Icon(imageVector = screen.icon, contentDescription =screen.title)
+            val icon = painterResource(screen.icon)
+            Icon(painter = icon, contentDescription = screen.title,
+            modifier = Modifier.size(25.dp))
+           // Icon(imageVector = screen.icon, contentDescription =screen.title)
         }, selected = currentdestination?.hierarchy?.any{
             it.route==screen.route
         }==true,
@@ -92,3 +105,5 @@ fun BottombarNavGraph(navcontroller:NavHostController){
     }
 
 }
+
+

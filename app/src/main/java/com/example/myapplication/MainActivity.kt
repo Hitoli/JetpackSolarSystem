@@ -20,6 +20,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.myapplication.FeedScreen.viewmodel.FeedScreenViewModel
+
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -30,7 +31,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApplicationTheme {
                Column {
-                   FeedScreen()
+                   Navigation()
+
                }
 
             }
