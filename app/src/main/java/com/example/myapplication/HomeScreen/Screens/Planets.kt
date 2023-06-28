@@ -23,7 +23,7 @@ fun planetanimation(maxwidth: Dp, maxheight: Dp) {
     val planetSize = 150.dp
     val modifier: Modifier
     var angle by remember { mutableStateOf(0f) }
-    var moonAngle by remember { mutableStateOf(0f) }
+
     val infiniteTrans = rememberInfiniteTransition()
     val planetsactivity = infiniteTrans.animateFloat(
         initialValue = 0f,
@@ -35,7 +35,6 @@ fun planetanimation(maxwidth: Dp, maxheight: Dp) {
 
     LaunchedEffect(Unit) {
         while (true) {
-
             angle = planetsactivity.value
             delay(1) // Increase the delay time to slow down the animation
         }
